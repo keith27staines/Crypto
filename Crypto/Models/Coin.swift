@@ -21,7 +21,7 @@ struct Coin: Identifiable, Codable {
     var totalVolume: Double?
     var high24H: Double?
     var low24H: Double?
-    var priceChange24H: Double
+    var priceChange24H: Double?
     var priceChangePercentage24H: Double?
     var marketCapChange24H: Double?
     var marketCapChangePercentage24H: Double?
