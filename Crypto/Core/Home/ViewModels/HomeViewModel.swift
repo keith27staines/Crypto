@@ -16,14 +16,14 @@ class HomeViewModel: ObservableObject {
     
     var coinServiceSubscription: AnyCancellable?
     
-    let coinService = CoinDataService()
+    let coinService = APIFactory.makeCoinService()
     
     init() {
         subscribeToDataServices()
     }
     
     func subscribeToDataServices() {
-        coinServiceSubscription = coinService.$allCoins
+        coinServiceSubscription = coinService.$model
             .sink { [weak self] result in
             switch result {
             case .failure(let error):
@@ -32,7 +32,7 @@ class HomeViewModel: ObservableObject {
                 break
             }
         } receiveValue: { [weak self] allCoins in
-            self?.allCoins = allCoins
+            self?.allCoins = allCoins ?? []
         }
 
     }
