@@ -17,10 +17,10 @@ struct CointRowView: View {
             leftColumn
             Spacer()
             if showHoldingsColumn { middleColumn }
-            Spacer()
             rightColumn
         }
         .font(.subheadline)
+        .listRowInsets(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 10))
 
     }
     

@@ -22,6 +22,7 @@
 		535EE6E8272C10470040B51A /* CointRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535EE6E7272C10470040B51A /* CointRowView.swift */; };
 		535EE6EA272C136E0040B51A /* PreviewProvider+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535EE6E9272C136E0040B51A /* PreviewProvider+Extensions.swift */; };
 		535EE6EC272C1B880040B51A /* Double+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535EE6EB272C1B880040B51A /* Double+Extensions.swift */; };
+		539A5703272D1DFE00268251 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539A5702272D1DFE00268251 /* HomeViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,7 @@
 		535EE6E7272C10470040B51A /* CointRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CointRowView.swift; sourceTree = "<group>"; };
 		535EE6E9272C136E0040B51A /* PreviewProvider+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PreviewProvider+Extensions.swift"; sourceTree = "<group>"; };
 		535EE6EB272C1B880040B51A /* Double+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extensions.swift"; sourceTree = "<group>"; };
+		539A5702272D1DFE00268251 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -194,6 +196,7 @@
 		535EE6DC272B18C70040B51A /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				539A5702272D1DFE00268251 /* HomeViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -346,6 +349,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				535EE6D3272B14BE0040B51A /* ColorTheme.swift in Sources */,
+				539A5703272D1DFE00268251 /* HomeViewModel.swift in Sources */,
 				535EE6A8272B129A0040B51A /* CryptoApp.swift in Sources */,
 				535EE6DE272B190F0040B51A /* HomeView.swift in Sources */,
 				535EE6E1272B1CE40040B51A /* CircleButtonView.swift in Sources */,

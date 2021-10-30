@@ -9,24 +9,79 @@ import SwiftUI
 
 struct HomeView: View {
     
+    @EnvironmentObject private var homeViewModel: HomeViewModel
     @State private var showPortfolio = false
     
     var body: some View {
         ZStack {
-            Color
-                .theme
-                .background
-                .ignoresSafeArea()
-            
-            VStack {
-                homeHeaderView
-                Spacer(minLength: 0)
-            }
+            backgroundView
+            contentView
         }
     }
 }
 
 extension HomeView {
+    
+    private var contentView: some View {
+        VStack {
+            homeHeaderView
+            columnHeadersView
+            coinListView
+            Spacer(minLength: 0)
+        }
+    }
+    
+    private var backgroundView: some View {
+        Color
+            .theme
+            .background
+            .ignoresSafeArea()
+    }
+    
+    @ViewBuilder
+    private var coinListView: some View {
+        if showPortfolio {
+            portfolioCoinsList
+                .transition(.move(edge: .trailing))
+            
+        }
+        if !showPortfolio {
+            allCoinsList
+                .transition(.move(edge: .leading))
+        }
+    }
+    
+    private var columnHeadersView: some View {
+        HStack {
+            Text("Coin")
+            Spacer()
+            if showPortfolio {
+                Text("Holdings")
+            }
+            Text("Price")
+                .frame(width: UIScreen.main.bounds.width / 3.5, alignment: .trailing)
+        }
+        .font(.caption)
+        .padding(.horizontal)
+    }
+    
+    private var allCoinsList: some View {
+        List {
+            ForEach(homeViewModel.portfolioCoins) { coin in
+                CointRowView(coin: coin, showHoldingsColumn: false)
+            }
+        }
+        .listStyle(PlainListStyle())
+    }
+    
+    private var portfolioCoinsList: some View {
+        List {
+            ForEach(homeViewModel.portfolioCoins) { coin in
+                CointRowView(coin: coin, showHoldingsColumn: true)
+            }
+        }
+        .listStyle(PlainListStyle())
+    }
     
     private var homeHeaderView: some View {
         HStack {
@@ -71,12 +126,15 @@ struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             NavigationView {
-                HomeView().navigationBarHidden(true)
+                HomeView()
+                    .navigationBarHidden(true)
             }
             NavigationView {
-                HomeView().navigationBarHidden(true)
+                HomeView()
+                    .navigationBarHidden(true)
             }
             .preferredColorScheme(.dark)
         }
+        .environmentObject(dev.homeViewModel)
     }
 }
