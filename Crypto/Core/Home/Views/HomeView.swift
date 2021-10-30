@@ -67,7 +67,7 @@ extension HomeView {
     
     private var allCoinsList: some View {
         List {
-            ForEach(homeViewModel.portfolioCoins) { coin in
+            ForEach(homeViewModel.allCoins) { coin in
                 CointRowView(coin: coin, showHoldingsColumn: false)
             }
         }

@@ -6,22 +6,35 @@
 //
 
 import SwiftUI
-
+import Combine
 
 class HomeViewModel: ObservableObject {
     
-    @Published var allCoins: [Coin]
+    @Published var allCoins: [Coin] = []
+    @Published var portfolioCoins: [Coin] = []
+    @Published var error: Error?
     
-    @Published var portfolioCoins: [Coin]
+    var coinServiceSubscription: AnyCancellable?
+    
+    let coinService = CoinDataService()
     
     init() {
-        allCoins = [
-            DeveloperPreview.instance.coin
-        ]
-        
-        portfolioCoins = [
-            DeveloperPreview.instance.coin
-        ]
+        subscribeToDataServices()
+    }
+    
+    func subscribeToDataServices() {
+        coinServiceSubscription = coinService.$allCoins
+            .sink { [weak self] result in
+            switch result {
+            case .failure(let error):
+                self?.error = error
+            case .finished:
+                break
+            }
+        } receiveValue: { [weak self] allCoins in
+            self?.allCoins = allCoins
+        }
+
     }
     
     
