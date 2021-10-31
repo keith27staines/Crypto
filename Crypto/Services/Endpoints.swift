@@ -22,9 +22,26 @@ enum Endpoint: String {
 extension CryptoError {
     static func endpointError(_ endpoint: Endpoint) -> CryptoError {
         CryptoError(
+            title: "Bad URL for api endpoint",
+            description: "A valid url could not be constructed",
+            detail: endpoint.rawValue
+        )
+    }
+    
+    static func badURLString(_ urlString: String?) -> CryptoError {
+        guard let urlString = urlString, !urlString.isEmpty else {
+            return CryptoError(
+                title: "Bad URL",
+                description: "The urlString was missing or empty",
+                detail: urlString ?? ""
+            )
+        }
+
+        return CryptoError(
             title: "Bad URL",
-            description: "A valid URL could not be constructed",
-            detail: endpoint.rawValue)
+            description: "A valid url could not be constructed",
+            detail: urlString
+        )
     }
 }
 

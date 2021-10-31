@@ -11,6 +11,13 @@ struct CointRowView: View {
     
     let coin: Coin
     let showHoldingsColumn: Bool
+    let imageUrlString: String?
+    
+    init(coin: Coin, showHoldingsColumn: Bool, imageUrlString: String? = nil) {
+        self.coin = coin
+        self.showHoldingsColumn = showHoldingsColumn
+        self.imageUrlString = imageUrlString
+    }
     
     var body: some View {
         HStack(spacing: 0) {
@@ -30,7 +37,7 @@ struct CointRowView: View {
                 .font(.caption)
                 .foregroundColor(.theme.secondaryText)
                 .frame(minWidth: 30)
-            Circle()
+            SelfloadingImageView(imageUrlString: imageUrlString)
                 .frame(width: 30, height: 30)
             Text("\(coin.symbol ?? "")".uppercased())
                 .font(.headline)
@@ -68,11 +75,12 @@ struct CointRowView: View {
 struct CointRowView_Previews: PreviewProvider {
     
     static var previews: some View {
+        let url = "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579"
         Group {
-            CointRowView(coin: dev.coin, showHoldingsColumn: true)
+            CointRowView(coin: dev.coin, showHoldingsColumn: true,imageUrlString: url)
                 .previewLayout(.sizeThatFits)
                 .preferredColorScheme(.light)
-            CointRowView(coin: dev.coin, showHoldingsColumn: true)
+            CointRowView(coin: dev.coin, showHoldingsColumn: true, imageUrlString: url)
                 .previewLayout(.sizeThatFits)
                 .preferredColorScheme(.dark)
         }

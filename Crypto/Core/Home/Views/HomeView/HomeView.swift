@@ -68,7 +68,7 @@ extension HomeView {
     private var allCoinsList: some View {
         List {
             ForEach(homeViewModel.allCoins) { coin in
-                CointRowView(coin: coin, showHoldingsColumn: false)
+                CointRowView(coin: coin, showHoldingsColumn: false, imageUrlString: coin.image)
             }
         }
         .listStyle(PlainListStyle())
@@ -77,7 +77,7 @@ extension HomeView {
     private var portfolioCoinsList: some View {
         List {
             ForEach(homeViewModel.portfolioCoins) { coin in
-                CointRowView(coin: coin, showHoldingsColumn: true)
+                CointRowView(coin: coin, showHoldingsColumn: true, imageUrlString: coin.image)
             }
         }
         .listStyle(PlainListStyle())
