@@ -25,6 +25,7 @@ extension HomeView {
     private var contentView: some View {
         VStack {
             homeHeaderView
+            searchBar
             columnHeadersView
             coinListView
             Spacer(minLength: 0)
@@ -49,6 +50,10 @@ extension HomeView {
             allCoinsList
                 .transition(.move(edge: .leading))
         }
+    }
+    
+    private var searchBar: some View {
+        SearchBar(searchString: $homeViewModel.searchText)
     }
     
     private var columnHeadersView: some View {
@@ -129,6 +134,7 @@ struct HomeView_Previews: PreviewProvider {
                 HomeView()
                     .navigationBarHidden(true)
             }
+            .preferredColorScheme(.dark)
             NavigationView {
                 HomeView()
                     .navigationBarHidden(true)

@@ -13,6 +13,7 @@ class HomeViewModel: ObservableObject {
     @Published var allCoins: [Coin] = []
     @Published var portfolioCoins: [Coin] = []
     @Published var error: Error?
+    @Published var searchText: String = ""
     
     var coinServiceSubscription: AnyCancellable?
     
