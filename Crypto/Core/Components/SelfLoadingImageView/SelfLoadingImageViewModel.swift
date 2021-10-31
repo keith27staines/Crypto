@@ -31,6 +31,7 @@ class SelfloadingImageViewModel: ObservableObject {
                 case .finished:
                     break
                 }
+                self?.isLoading = false
             } receiveValue: { [weak self] uiImage in
                 self?.uiImage = uiImage
                 self?.isLoading = false
