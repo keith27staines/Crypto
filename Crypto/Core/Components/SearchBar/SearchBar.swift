@@ -18,6 +18,7 @@ struct SearchBar: View {
                     searchString.isEmpty ? Color.theme.secondaryText : Color.theme.accent
                 )
             TextField("Search by name or symbol", text: $searchString)
+                .autocapitalization(.none)
                 .disableAutocorrection(true)
                 
             if !searchString.isEmpty {

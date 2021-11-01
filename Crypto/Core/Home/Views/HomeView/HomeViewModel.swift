@@ -15,7 +15,7 @@ class HomeViewModel: ObservableObject {
     @Published var error: Error?
     @Published var searchText: String = ""
     
-    var coinServiceSubscription: AnyCancellable?
+    var subscriptions = Set<AnyCancellable>()
     
     let coinService = APIFactory.makeCoinService()
     
@@ -24,19 +24,27 @@ class HomeViewModel: ObservableObject {
     }
     
     func subscribeToDataServices() {
-        coinServiceSubscription = coinService.$model
-            .sink { [weak self] result in
-            switch result {
-            case .failure(let error):
-                self?.error = error
-            case .finished:
-                break
+        $searchText
+            .combineLatest(coinService.$model)
+            .map(filteredCoins)
+            .sink { result in
+            } receiveValue: { [weak self] coins in
+                self?.allCoins = coins
             }
-        } receiveValue: { [weak self] allCoins in
-            self?.allCoins = allCoins ?? []
-        }
-
+            .store(in: &subscriptions)
     }
     
-    
+    private func filteredCoins(text: String, coins: [Coin]?) -> [Coin] {
+        guard let coins = coins, !searchText.isEmpty else {
+            return coins ?? []
+        }
+        return coins.filter { coin in
+            let text = text.lowercased()
+            let id = (coin.id ?? "").lowercased()
+            let symbol = (coin.symbol ?? "").lowercased()
+            let name = (coin.name ?? "").lowercased()
+            let isIncluded = id.contains(text) || name.contains(text) || symbol.contains(text)
+            return isIncluded
+        }
+    }
 }
