@@ -8,6 +8,12 @@
 import SwiftUI
 
 struct HomeView: View {
+    @State private var statistics: [Statistic] = [
+        Statistic(title: "Title", value: "Value", change: 7),
+        Statistic(title: "Title", value: "Value", change: -7),
+        Statistic(title: "Title", value: "Value", change: 3),
+        Statistic(title: "Title", value: "Value", change: -5)
+    ]
     
     @EnvironmentObject private var homeViewModel: HomeViewModel
     @State private var showPortfolio = false
@@ -21,10 +27,11 @@ struct HomeView: View {
 }
 
 extension HomeView {
-    
+
     private var contentView: some View {
         VStack {
             homeHeaderView
+            statisticsView
             searchBar
             columnHeadersView
             coinListView
@@ -124,6 +131,16 @@ extension HomeView {
                     showPortfolio.toggle()
                 }
             }
+    }
+    
+    private var statisticsView: some View {
+        HStack {
+            ForEach(statistics) { statistic in
+                StatisticView(model: statistic)
+                    .frame(width: UIScreen.main.bounds.width/3)
+            }
+        }
+        .frame(width: UIScreen.main.bounds.width, alignment: showPortfolio ? .trailing : .leading)
     }
 }
 
